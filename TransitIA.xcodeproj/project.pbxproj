@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		07920E3D2FB2F8CE007F2D93 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		07920E102FB2F66D007F2D93 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		07920E022FB2F66C007F2D93 /* TransitIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07920E0F2FB2F66D007F2D93 /* TransitIATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitIATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07920E192FB2F66D007F2D93 /* TransitIAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitIAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -79,6 +84,11 @@
 				07920E122FB2F66D007F2D93 /* TransitIATests */,
 				07920E1C2FB2F66D007F2D93 /* TransitIAUITests */,
 				07920E032FB2F66C007F2D93 /* Products */,
+				07920E332FB2F7FB007F2D93 /* Models */,
+				07920E352FB2F830007F2D93 /* Views */,
+				07920E372FB2F857007F2D93 /* ViewModels */,
+				07920E392FB2F86B007F2D93 /* Services */,
+				07920E3B2FB2F880007F2D93 /* ML */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +100,42 @@
 				07920E192FB2F66D007F2D93 /* TransitIAUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		07920E332FB2F7FB007F2D93 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		07920E352FB2F830007F2D93 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		07920E372FB2F857007F2D93 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		07920E392FB2F86B007F2D93 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		07920E3B2FB2F880007F2D93 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ML;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07920E3D2FB2F8CE007F2D93 /* RouteDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
