@@ -43,6 +43,22 @@ struct ContentView: View {
                             .foregroundColor(.white.opacity(0.9))
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
+                        
+                        NavigationLink(destination: HistoryView()) {
+
+                            HStack {
+
+                                Image(systemName: "clock.arrow.circlepath")
+
+                                Text("Ver historial")
+                                    .bold()
+                            }
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(.black.opacity(0.2))
+                            .cornerRadius(15)
+                        }
 
                         ForEach(routes) { route in
 

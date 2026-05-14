@@ -4,12 +4,30 @@ struct RouteDetailView: View {
 
     let route: BusRoute
 
-    // Predicción usando Core ML
-    let prediction = PredictionService.shared.predictSaturation(
-        hour: 18,
-        day: "Lunes",
-        traffic: "Alta"
-    )
+    @State private var selectedHour = 7
+    @State private var selectedTraffic = "Alta"
+    @State private var selectedDay = "Lunes"
+
+    let trafficOptions = ["Alta", "Media", "Baja"]
+
+    let days = [
+        "Lunes",
+        "Martes",
+        "Miercoles",
+        "Jueves",
+        "Viernes",
+        "Sabado",
+        "Domingo"
+    ]
+
+    var prediction: String {
+
+        PredictionService.shared.predictSaturation(
+            hour: selectedHour,
+            day: selectedDay,
+            traffic: selectedTraffic
+        )
+    }
 
     var saturationColor: Color {
 
@@ -31,10 +49,10 @@ struct RouteDetailView: View {
         switch prediction {
 
         case "Alta":
-            return "Se recomienda esperar la siguiente unidad."
+            return "Alta demanda detectada. Se recomienda esperar otra unidad."
 
         case "Media":
-            return "Saturación moderada."
+            return "El transporte presenta una saturación moderada."
 
         default:
             return "La unidad presenta baja saturación."
@@ -52,79 +70,149 @@ struct RouteDetailView: View {
             )
             .ignoresSafeArea()
 
-            VStack(spacing: 25) {
+            ScrollView {
 
-                Image(systemName: "brain.head.profile")
-                    .font(.system(size: 80))
-                    .foregroundColor(.white)
+                VStack(spacing: 25) {
 
-                Text(route.name)
-                    .font(.largeTitle)
-                    .bold()
-                    .foregroundColor(.white)
+                    Image(systemName: "brain.head.profile")
+                        .font(.system(size: 80))
+                        .foregroundColor(.white)
 
-                VStack(spacing: 20) {
+                    Text(route.name)
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundColor(.white)
 
-                    VStack {
+                    VStack(spacing: 20) {
 
-                        Text("Predicción IA")
-                            .font(.headline)
+                        // Hora
+                        VStack(alignment: .leading) {
 
-                        Text(prediction)
-                            .font(.system(size: 45))
-                            .bold()
-                            .foregroundColor(saturationColor)
+                            Text("Hora")
+                                .font(.headline)
+
+                            Stepper(
+                                "\(selectedHour):00 hrs",
+                                value: $selectedHour,
+                                in: 0...23
+                            )
+                        }
+
+                        Divider()
+
+                        // Día
+                        VStack(alignment: .leading) {
+
+                            Text("Día")
+                                .font(.headline)
+
+                            Picker("Día", selection: $selectedDay) {
+
+                                ForEach(days, id: \.self) { day in
+                                    Text(day)
+                                }
+                            }
+                            .pickerStyle(MenuPickerStyle())
+                        }
+
+                        Divider()
+
+                        // Tráfico
+                        VStack(alignment: .leading) {
+
+                            Text("Nivel de tráfico")
+                                .font(.headline)
+
+                            Picker(
+                                "Tráfico",
+                                selection: $selectedTraffic
+                            ) {
+
+                                ForEach(trafficOptions, id: \.self) {
+                                    traffic in
+
+                                    Text(traffic)
+                                }
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                        }
+
+                        Divider()
+
+                        // Predicción
+                        VStack {
+
+                            Text("Predicción IA")
+                                .font(.headline)
+
+                            Text(prediction)
+                                .font(.system(size: 40))
+                                .bold()
+                                .foregroundColor(saturationColor)
+                        }
+
+                        Divider()
+
+                        VStack {
+
+                            Text("Tiempo estimado")
+                                .font(.headline)
+
+                            Text(route.waitTime)
+                                .font(.title)
+                                .bold()
+                        }
+
+                        Divider()
+
+                        VStack {
+
+                            Text("Recomendación")
+                                .font(.headline)
+
+                            Text(recommendation)
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.gray)
+                        }
+
+                        Divider()
+
+                        VStack {
+
+                            Text("Tecnología")
+                                .font(.headline)
+
+                            Text("Predicción generada con Core ML")
+                                .foregroundColor(.blue)
+                        }
                     }
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(25)
+                    .padding(.horizontal)
 
-                    Divider()
-
-                    VStack {
-
-                        Text("Tiempo estimado")
-                            .font(.headline)
-
-                        Text(route.waitTime)
-                            .font(.title)
-                            .bold()
-                    }
-
-                    Divider()
-
-                    VStack {
-
-                        Text("Análisis")
-                            .font(.headline)
-
-                        Text(recommendation)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.gray)
-                    }
-
-                    Divider()
-
-                    VStack {
-
-                        Text("Tecnología")
-                            .font(.headline)
-
-                        Text("Predicción generada mediante Core ML")
-                            .foregroundColor(.blue)
-                            .multilineTextAlignment(.center)
-                    }
+                    Spacer()
                 }
-                .padding()
-                .background(.white)
-                .cornerRadius(25)
-                .padding(.horizontal)
+                .padding(.top, 30)
+                
+                .onAppear {
 
-                Spacer()
+                    let item = HistoryItem(
+                        routeName: route.name,
+                        prediction: prediction,
+                        hour: selectedHour,
+                        day: selectedDay
+                    )
+
+                    HistoryService.shared.save(item: item)
+                }
             }
-            .padding(.top, 40)
         }
     }
 }
 
 #Preview {
+
     RouteDetailView(
         route: BusRoute(
             name: "Ruta 380",

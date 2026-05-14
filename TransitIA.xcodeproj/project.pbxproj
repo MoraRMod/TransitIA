@@ -10,6 +10,9 @@
 		07902A6D2FB5791500A9479A /* RouteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A6C2FB5791500A9479A /* RouteCardView.swift */; };
 		07902A6F2FB57F0500A9479A /* TransitPredictor.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 07902A6E2FB57F0500A9479A /* TransitPredictor.mlmodel */; };
 		07902A712FB57F7300A9479A /* PredictionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A702FB57F7300A9479A /* PredictionService.swift */; };
+		07902A732FB58F1200A9479A /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A722FB58F1200A9479A /* HistoryItem.swift */; };
+		07902A752FB58F5200A9479A /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A742FB58F5100A9479A /* HistoryService.swift */; };
+		07902A772FB58F6800A9479A /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A762FB58F6800A9479A /* HistoryView.swift */; };
 		07920E3D2FB2F8CE007F2D93 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +37,9 @@
 		07902A6C2FB5791500A9479A /* RouteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCardView.swift; sourceTree = "<group>"; };
 		07902A6E2FB57F0500A9479A /* TransitPredictor.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TransitPredictor.mlmodel; sourceTree = "<group>"; };
 		07902A702FB57F7300A9479A /* PredictionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionService.swift; sourceTree = "<group>"; };
+		07902A722FB58F1200A9479A /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
+		07902A742FB58F5100A9479A /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
+		07902A762FB58F6800A9479A /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		07920E022FB2F66C007F2D93 /* TransitIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07920E0F2FB2F66D007F2D93 /* TransitIATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitIATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07920E192FB2F66D007F2D93 /* TransitIAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitIAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +117,7 @@
 		07920E332FB2F7FB007F2D93 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				07902A722FB58F1200A9479A /* HistoryItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -120,6 +127,7 @@
 			children = (
 				07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */,
 				07902A6C2FB5791500A9479A /* RouteCardView.swift */,
+				07902A762FB58F6800A9479A /* HistoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -135,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				07902A702FB57F7300A9479A /* PredictionService.swift */,
+				07902A742FB58F5100A9479A /* HistoryService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -293,8 +302,11 @@
 			files = (
 				07920E3D2FB2F8CE007F2D93 /* RouteDetailView.swift in Sources */,
 				07902A6F2FB57F0500A9479A /* TransitPredictor.mlmodel in Sources */,
+				07902A752FB58F5200A9479A /* HistoryService.swift in Sources */,
+				07902A732FB58F1200A9479A /* HistoryItem.swift in Sources */,
 				07902A712FB57F7300A9479A /* PredictionService.swift in Sources */,
 				07902A6D2FB5791500A9479A /* RouteCardView.swift in Sources */,
+				07902A772FB58F6800A9479A /* HistoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
