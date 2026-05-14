@@ -4,9 +4,16 @@ struct RouteDetailView: View {
 
     let route: BusRoute
 
+    // Predicción usando Core ML
+    let prediction = PredictionService.shared.predictSaturation(
+        hour: 18,
+        day: "Lunes",
+        traffic: "Alta"
+    )
+
     var saturationColor: Color {
 
-        switch route.saturation {
+        switch prediction {
 
         case "Alta":
             return .red
@@ -21,7 +28,7 @@ struct RouteDetailView: View {
 
     var recommendation: String {
 
-        switch route.saturation {
+        switch prediction {
 
         case "Alta":
             return "Se recomienda esperar la siguiente unidad."
@@ -47,7 +54,7 @@ struct RouteDetailView: View {
 
             VStack(spacing: 25) {
 
-                Image(systemName: "bus.doubledecker.fill")
+                Image(systemName: "brain.head.profile")
                     .font(.system(size: 80))
                     .foregroundColor(.white)
 
@@ -60,23 +67,11 @@ struct RouteDetailView: View {
 
                     VStack {
 
-                        Text("Tiempo estimado")
+                        Text("Predicción IA")
                             .font(.headline)
 
-                        Text(route.waitTime)
+                        Text(prediction)
                             .font(.system(size: 45))
-                            .bold()
-                    }
-
-                    Divider()
-
-                    VStack {
-
-                        Text("Nivel de saturación")
-                            .font(.headline)
-
-                        Text(route.saturation)
-                            .font(.title)
                             .bold()
                             .foregroundColor(saturationColor)
                     }
@@ -85,12 +80,36 @@ struct RouteDetailView: View {
 
                     VStack {
 
-                        Text("Recomendación")
+                        Text("Tiempo estimado")
+                            .font(.headline)
+
+                        Text(route.waitTime)
+                            .font(.title)
+                            .bold()
+                    }
+
+                    Divider()
+
+                    VStack {
+
+                        Text("Análisis")
                             .font(.headline)
 
                         Text(recommendation)
                             .multilineTextAlignment(.center)
                             .foregroundColor(.gray)
+                    }
+
+                    Divider()
+
+                    VStack {
+
+                        Text("Tecnología")
+                            .font(.headline)
+
+                        Text("Predicción generada mediante Core ML")
+                            .foregroundColor(.blue)
+                            .multilineTextAlignment(.center)
                     }
                 }
                 .padding()
@@ -103,4 +122,14 @@ struct RouteDetailView: View {
             .padding(.top, 40)
         }
     }
+}
+
+#Preview {
+    RouteDetailView(
+        route: BusRoute(
+            name: "Ruta 380",
+            waitTime: "8 min",
+            saturation: "Alta"
+        )
+    )
 }
