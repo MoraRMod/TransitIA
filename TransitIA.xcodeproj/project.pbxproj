@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07902A6D2FB5791500A9479A /* RouteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A6C2FB5791500A9479A /* RouteCardView.swift */; };
 		07920E3D2FB2F8CE007F2D93 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07902A6C2FB5791500A9479A /* RouteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCardView.swift; sourceTree = "<group>"; };
 		07920E022FB2F66C007F2D93 /* TransitIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07920E0F2FB2F66D007F2D93 /* TransitIATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitIATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07920E192FB2F66D007F2D93 /* TransitIAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitIAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */,
+				07902A6C2FB5791500A9479A /* RouteCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07920E3D2FB2F8CE007F2D93 /* RouteDetailView.swift in Sources */,
+				07902A6D2FB5791500A9479A /* RouteCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

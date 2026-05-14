@@ -4,29 +4,103 @@ struct RouteDetailView: View {
 
     let route: BusRoute
 
+    var saturationColor: Color {
+
+        switch route.saturation {
+
+        case "Alta":
+            return .red
+
+        case "Media":
+            return .orange
+
+        default:
+            return .green
+        }
+    }
+
+    var recommendation: String {
+
+        switch route.saturation {
+
+        case "Alta":
+            return "Se recomienda esperar la siguiente unidad."
+
+        case "Media":
+            return "Saturación moderada."
+
+        default:
+            return "La unidad presenta baja saturación."
+        }
+    }
+
     var body: some View {
 
-        VStack(spacing: 20) {
+        ZStack {
 
-            Text(route.name)
-                .font(.largeTitle)
-                .bold()
+            LinearGradient(
+                colors: [.blue.opacity(0.8), .cyan.opacity(0.5)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
 
-            Text("Tiempo estimado")
-                .font(.title2)
+            VStack(spacing: 25) {
 
-            Text(route.waitTime)
-                .font(.system(size: 40))
-                .bold()
+                Image(systemName: "bus.doubledecker.fill")
+                    .font(.system(size: 80))
+                    .foregroundColor(.white)
 
-            Text("Saturación")
+                Text(route.name)
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(.white)
 
-            Text(route.saturation)
-                .font(.title)
-                .foregroundColor(.red)
+                VStack(spacing: 20) {
 
-            Spacer()
+                    VStack {
+
+                        Text("Tiempo estimado")
+                            .font(.headline)
+
+                        Text(route.waitTime)
+                            .font(.system(size: 45))
+                            .bold()
+                    }
+
+                    Divider()
+
+                    VStack {
+
+                        Text("Nivel de saturación")
+                            .font(.headline)
+
+                        Text(route.saturation)
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(saturationColor)
+                    }
+
+                    Divider()
+
+                    VStack {
+
+                        Text("Recomendación")
+                            .font(.headline)
+
+                        Text(recommendation)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.gray)
+                    }
+                }
+                .padding()
+                .background(.white)
+                .cornerRadius(25)
+                .padding(.horizontal)
+
+                Spacer()
+            }
+            .padding(.top, 40)
         }
-        .padding()
     }
 }
