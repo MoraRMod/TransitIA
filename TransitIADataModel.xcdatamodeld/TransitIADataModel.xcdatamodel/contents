@@ -7,11 +7,11 @@
         <attribute name="tipoIncidente" optional="YES" attributeType="String"/>
         <attribute name="zona" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="PrecitionEntity" representedClassName="PrecitionEntity" syncable="YES" codeGenerationType="class">
+    <entity name="PredictionEntity" representedClassName="PredictionEntity" syncable="YES" codeGenerationType="class">
         <attribute name="dia" optional="YES" attributeType="String"/>
         <attribute name="direccion" optional="YES" attributeType="String"/>
         <attribute name="estacion" optional="YES" attributeType="String"/>
-        <attribute name="fehca" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="fecha" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="horaConsulta" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="linea" optional="YES" attributeType="String"/>

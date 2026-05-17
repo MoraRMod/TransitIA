@@ -1,40 +1,111 @@
 import Foundation
+internal import CoreData
 
 class HistoryService {
 
     static let shared = HistoryService()
 
-    private let key = "prediction_history"
+    private let context =
+        PersistenceController
+            .shared
+            .container
+            .viewContext
 
-    func save(item: HistoryItem) {
+    func savePrediction(
+        line: String,
+        station: String,
+        destination: String,
+        prediction: String,
+        hour: Int,
+        day: String,
+        estimatedTime: Int
+    ) {
 
-        var history = fetchHistory()
+        let item = PredictionEntity(
+            context: context
+        )
 
-        history.insert(item, at: 0)
+        item.id = UUID()
+        item.fecha = Date()
+        item.linea = line
+        item.estacion = station
+        item.direccion = destination
+        item.prediccion = prediction
+        item.horaConsulta = Int16(hour)
+        item.dia = day
+        item.tiempoEstimado = Int16(
+            estimatedTime
+        )
 
-        if history.count > 10 {
-            history.removeLast()
-        }
+        do {
 
-        if let encoded = try? JSONEncoder().encode(history) {
+            try context.save()
 
-            UserDefaults.standard.set(encoded, forKey: key)
+        } catch {
+
+            print(
+                "Error guardando historial: \(error)"
+            )
         }
     }
 
-    func fetchHistory() -> [HistoryItem] {
+    func fetchHistory()
+    -> [PredictionEntity] {
 
-        guard
-            let data = UserDefaults.standard.data(forKey: key),
-            let decoded = try? JSONDecoder().decode(
-                [HistoryItem].self,
-                from: data
+        let request:
+        NSFetchRequest<
+            PredictionEntity
+        > = PredictionEntity.fetchRequest()
+
+        request.sortDescriptors = [
+            NSSortDescriptor(
+                key: "fecha",
+                ascending: false
             )
-        else {
+        ]
+
+        do {
+
+            return try context.fetch(
+                request
+            )
+
+        } catch {
+
+            print(
+                "Error cargando historial: \(error)"
+            )
 
             return []
         }
+    }
 
-        return decoded
+    func clearHistory() {
+
+        let request:
+        NSFetchRequest<
+            NSFetchRequestResult
+        > = PredictionEntity
+            .fetchRequest()
+
+        let delete =
+            NSBatchDeleteRequest(
+                fetchRequest: request
+            )
+
+        do {
+
+            try context.execute(
+                delete
+            )
+
+            try context.save()
+
+        } catch {
+
+            print(
+                "Error borrando historial"
+            )
+        }
     }
 }

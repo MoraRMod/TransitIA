@@ -231,6 +231,10 @@ struct StationDetailView: View {
                 }
                 .padding()
             }
+            .onDisappear {
+
+                saveToHistory()
+            }
         }
     }
 
@@ -249,7 +253,7 @@ struct StationDetailView: View {
                 .bold()
         }
     }
-    
+
     func barColor(for index: Int) -> Color {
 
         switch prediction {
@@ -272,5 +276,18 @@ struct StationDetailView: View {
             ? .green
             : .gray.opacity(0.2)
         }
+    }
+
+    private func saveToHistory() {
+
+        HistoryService.shared.savePrediction(
+            line: line.name,
+            station: station,
+            destination: destination,
+            prediction: prediction,
+            hour: selectedHour,
+            day: selectedDay,
+            estimatedTime: arrivalTime
+        )
     }
 }
