@@ -8,7 +8,6 @@ struct StationDetailView: View {
     @State private var selectedHour = 8
     @State private var selectedTraffic = "Alta"
     @State private var selectedDay = "Lunes"
-
     @State private var direction = 0
 
     let trafficOptions = ["Alta", "Media", "Baja"]
@@ -24,36 +23,42 @@ struct StationDetailView: View {
     ]
 
     var terminals: [String] {
-
-        guard
-            let first = line.stations.first,
-            let last = line.stations.last
-        else {
-            return []
-        }
-
-        return [first, last]
+        [
+            line.stations.first ?? "",
+            line.stations.last ?? ""
+        ]
     }
 
     var currentIndex: Int {
-
         line.stations.firstIndex(of: station) ?? 0
+    }
+
+    var nextStation: String {
+
+        if direction == 0 {
+
+            return currentIndex > 0
+            ? line.stations[currentIndex - 1]
+            : "Terminal"
+
+        } else {
+
+            return currentIndex < line.stations.count - 1
+            ? line.stations[currentIndex + 1]
+            : "Terminal"
+        }
     }
 
     var remainingStations: Int {
 
         if direction == 0 {
-
             return currentIndex
-
-        } else {
-
-            return (line.stations.count - 1) - currentIndex
         }
+
+        return (line.stations.count - 1) - currentIndex
     }
 
     var destination: String {
-
         terminals[direction]
     }
 
@@ -66,19 +71,32 @@ struct StationDetailView: View {
         )
     }
 
-    var arrivalTime: Int {
+    var serviceStatus: String {
 
         switch prediction {
 
         case "Alta":
-            return max(2, remainingStations / 2)
+            return "Demora moderada"
 
         case "Media":
-            return max(3, remainingStations / 2)
+            return "Servicio estable"
 
         default:
-            return max(4, remainingStations / 2)
+            return "Operando con normalidad"
         }
+    }
+
+    var arrivalTime: Int {
+
+        if selectedHour >= 6 && selectedHour <= 9 {
+            return Int.random(in: 2...4)
+        }
+
+        if selectedHour >= 17 && selectedHour <= 20 {
+            return Int.random(in: 2...5)
+        }
+
+        return Int.random(in: 5...9)
     }
 
     var saturationColor: Color {
@@ -101,7 +119,10 @@ struct StationDetailView: View {
         ZStack {
 
             LinearGradient(
-                colors: [.purple.opacity(0.7), .blue.opacity(0.4)],
+                colors: [
+                    line.color.opacity(0.9),
+                    line.color.opacity(0.5)
+                ],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -121,26 +142,18 @@ struct StationDetailView: View {
 
                     VStack(spacing: 20) {
 
-                        VStack(alignment: .leading) {
+                        Picker(
+                            "Dirección",
+                            selection: $direction
+                        ) {
 
-                            Text("Dirección")
-                                .font(.headline)
+                            Text(terminals[0])
+                                .tag(0)
 
-                            Picker(
-                                "Dirección",
-                                selection: $direction
-                            ) {
-
-                                Text(terminals[0])
-                                    .tag(0)
-
-                                Text(terminals[1])
-                                    .tag(1)
-                            }
-                            .pickerStyle(.segmented)
+                            Text(terminals[1])
+                                .tag(1)
                         }
-
-                        Divider()
+                        .pickerStyle(.segmented)
 
                         Stepper(
                             "Hora: \(selectedHour):00 hrs",
@@ -148,87 +161,46 @@ struct StationDetailView: View {
                             in: 0...23
                         )
 
-                        Divider()
+                        Picker(
+                            "Tráfico",
+                            selection: $selectedTraffic
+                        ) {
 
-                        VStack(alignment: .leading) {
-
-                            Text("Nivel de tráfico")
-                                .font(.headline)
-
-                            Picker(
-                                "Tráfico",
-                                selection: $selectedTraffic
+                            ForEach(
+                                trafficOptions,
+                                id: \.self
                             ) {
-
-                                ForEach(
-                                    trafficOptions,
-                                    id: \.self
-                                ) {
-                                    Text($0)
-                                }
+                                Text($0)
                             }
-                            .pickerStyle(.segmented)
                         }
+                        .pickerStyle(.segmented)
 
                         Divider()
 
-                        VStack(alignment: .leading) {
+                        infoCard(
+                            title: "Destino",
+                            value: destination
+                        )
 
-                            Text("Día")
-                                .font(.headline)
+                        infoCard(
+                            title: "Próxima estación",
+                            value: nextStation
+                        )
 
-                            Picker(
-                                "Día",
-                                selection: $selectedDay
-                            ) {
+                        infoCard(
+                            title: "Estaciones restantes",
+                            value: "\(remainingStations)"
+                        )
 
-                                ForEach(days, id: \.self) {
+                        infoCard(
+                            title: "Próxima unidad",
+                            value: "\(arrivalTime) min"
+                        )
 
-                                    Text($0)
-                                }
-                            }
-                            .pickerStyle(.menu)
-                        }
-
-                        Divider()
-
-                        VStack(spacing: 10) {
-
-                            Text("Destino")
-                                .font(.headline)
-
-                            Text(destination)
-                                .font(.title2)
-                                .bold()
-                        }
-
-                        Divider()
-
-                        VStack(spacing: 10) {
-
-                            Text("Estaciones restantes")
-                                .font(.headline)
-
-                            Text("\(remainingStations)")
-                                .font(.system(size: 35))
-                                .bold()
-                                .foregroundColor(.blue)
-                        }
-
-                        Divider()
-
-                        VStack(spacing: 10) {
-
-                            Text("Próxima unidad")
-                                .font(.headline)
-
-                            Text("\(arrivalTime) min")
-                                .font(.system(size: 40))
-                                .bold()
-                                .foregroundColor(.blue)
-                        }
-
-                        Divider()
+                        infoCard(
+                            title: "Estado del servicio",
+                            value: serviceStatus
+                        )
 
                         VStack(spacing: 10) {
 
@@ -249,22 +221,20 @@ struct StationDetailView: View {
             }
         }
     }
-}
 
-#Preview {
+    func infoCard(
+        title: String,
+        value: String
+    ) -> some View {
 
-    StationDetailView(
-        line: TransitLine(
-            name: "Línea 1",
-            type: "Tren Ligero",
-            color: "red",
-            stations: [
-                "Auditorio",
-                "Periférico Norte",
-                "Juárez",
-                "Periférico Sur"
-            ]
-        ),
-        station: "Juárez"
-    )
+        VStack(spacing: 8) {
+
+            Text(title)
+                .font(.headline)
+
+            Text(value)
+                .font(.title3)
+                .bold()
+        }
+    }
 }

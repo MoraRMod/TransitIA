@@ -9,7 +9,10 @@ struct LineDetailView: View {
         ZStack {
 
             LinearGradient(
-                colors: [.indigo.opacity(0.7), .blue.opacity(0.4)],
+                colors: [
+                    line.color.opacity(0.9),
+                    line.color.opacity(0.5)
+                ],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -43,7 +46,9 @@ struct LineDetailView: View {
 
                             HStack {
 
-                                Image(systemName: "mappin.circle.fill")
+                                Circle()
+                                    .fill(line.color)
+                                    .frame(width: 14)
 
                                 Text(station)
 

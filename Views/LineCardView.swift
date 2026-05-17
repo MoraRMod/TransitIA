@@ -6,48 +6,34 @@ struct LineCardView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading, spacing: 10) {
+        HStack(spacing: 15) {
 
-            HStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(line.color)
+                .frame(width: 12)
 
-                Image(systemName: "tram.fill")
-                    .font(.title2)
-                    .foregroundColor(.blue)
+            VStack(alignment: .leading, spacing: 8) {
 
-                VStack(alignment: .leading) {
+                Text(line.name)
+                    .font(.headline)
 
-                    Text(line.name)
-                        .font(.headline)
+                Text(line.type)
+                    .foregroundColor(.secondary)
 
-                    Text(line.type)
-                        .foregroundColor(.gray)
-                }
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
+                Text("\(line.stations.count) estaciones")
+                    .font(.caption)
                     .foregroundColor(.gray)
             }
 
-            Text("\(line.stations.count) estaciones")
-                .font(.caption)
-                .foregroundColor(.secondary)
+            Spacer()
+
+            Image(systemName: "tram.fill")
+                .font(.title2)
+                .foregroundColor(line.color)
         }
         .padding()
         .background(.white)
         .cornerRadius(20)
         .shadow(radius: 5)
     }
-}
-
-#Preview {
-
-    LineCardView(
-        line: TransitLine(
-            name: "Línea 1",
-            type: "Tren Ligero",
-            color: "red",
-            stations: []
-        )
-    )
 }

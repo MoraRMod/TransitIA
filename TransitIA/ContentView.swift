@@ -7,7 +7,7 @@ struct ContentView: View {
         TransitLine(
             name: "Línea 1",
             type: "Tren Ligero",
-            color: "red",
+            color: .red,
             stations: [
                 "Auditorio",
                 "Periférico Norte",
@@ -35,7 +35,7 @@ struct ContentView: View {
         TransitLine(
             name: "Línea 2",
             type: "Tren Ligero",
-            color: "green",
+            color: .green,
             stations: [
                 "Juárez",
                 "Plaza Universidad",
@@ -53,7 +53,7 @@ struct ContentView: View {
         TransitLine(
             name: "Línea 3",
             type: "Tren Ligero",
-            color: "pink",
+            color: .pink,
             stations: [
                 "Arcos de Zapopan",
                 "Periférico Belenes",
@@ -79,7 +79,7 @@ struct ContentView: View {
         TransitLine(
             name: "Línea 4",
             type: "Tren Ligero",
-            color: "orange",
+            color: .orange,
             stations: [
                 "Tlajomulco Centro",
                 "CUTLAJO",
@@ -95,7 +95,7 @@ struct ContentView: View {
         TransitLine(
             name: "Línea 5",
             type: "Macro Aeropuerto",
-            color: "cyan",
+            color: .cyan,
             stations: [
                 "Aeropuerto",
                 "Carretera a Chapala",
@@ -107,7 +107,7 @@ struct ContentView: View {
         TransitLine(
             name: "Línea 6",
             type: "Macro Calzada",
-            color: "mint",
+            color: .mint,
             stations: [
                 "Mirador",
                 "Huentitán",
@@ -142,7 +142,7 @@ struct ContentView: View {
         TransitLine(
             name: "Línea 7",
             type: "Macro Periférico",
-            color: "purple",
+            color: .purple,
             stations: [
                 "Los Conejos",
                 "Colonia Jalisco",

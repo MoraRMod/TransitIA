@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 struct TransitLine: Identifiable {
 
@@ -6,6 +7,6 @@ struct TransitLine: Identifiable {
 
     let name: String
     let type: String
-    let color: String
+    let color: Color
     let stations: [String]
 }
