@@ -21,6 +21,56 @@ struct StationDetailView: View {
         "Sábado",
         "Domingo"
     ]
+    
+    var transfers: [String: [String]] {
+
+        [
+            "Independencia Norte":
+                ["Línea 7"],
+
+            "Periférico Norte":
+                ["Línea 7"],
+
+            "Periférico Sur":
+                ["Línea 7"],
+
+            "Periférico Belenes":
+                ["Línea 7"],
+
+            "Jalisco 200 Años":
+                ["Línea 7", "Línea 4"],
+
+            "Las Juntas":
+                ["Línea 4"],
+
+            "Carretera a Chapala":
+                ["Línea 7"],
+
+            "Agua Azul":
+                ["Línea 5", "Línea 6"],
+
+            "Fray Angélico":
+                ["Línea 4"],
+
+            "Juárez":
+                ["Línea 2"],
+
+            "Plaza Universidad":
+                ["Línea 3"],
+
+            "San Juan de Dios":
+                ["Línea 6"],
+
+            "Independencia":
+                ["Línea 6"],
+
+            "Bicentenario":
+                ["Línea 3"],
+
+            "Ávila Camacho":
+                ["Línea 1", "Línea 3"]
+        ]
+    }
 
     var terminals: [String] {
         [
@@ -179,6 +229,66 @@ struct StationDetailView: View {
                     y: 4
                 )
                 .padding(.horizontal)
+                
+                if let stationTransfers = transfers[station] {
+
+                    VStack(
+                        alignment: .leading,
+                        spacing: 16
+                    ) {
+
+                        Text("Transbordos disponibles")
+                            .font(.headline)
+
+                        ForEach(
+                            stationTransfers,
+                            id: \.self
+                        ) { transfer in
+
+                            HStack(spacing: 12) {
+
+                                Image(
+                                    systemName:
+                                        "arrow.triangle.swap"
+                                )
+                                .foregroundColor(.blue)
+
+                                VStack(
+                                    alignment: .leading,
+                                    spacing: 4
+                                ) {
+
+                                    Text(transfer)
+                                        .font(.headline)
+
+                                    Text(
+                                        "Conexión disponible"
+                                    )
+                                    .font(.caption)
+                                    .foregroundColor(
+                                        .secondary
+                                    )
+                                }
+
+                                Spacer()
+                            }
+                            .padding()
+                            .background(
+                                Color.blue.opacity(0.08)
+                            )
+                            .cornerRadius(18)
+                        }
+                    }
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(28)
+                    .shadow(
+                        color: .black.opacity(0.08),
+                        radius: 10,
+                        y: 4
+                    )
+                    .padding(.horizontal)
+                }
 
                 // Configuración
 
