@@ -9,7 +9,53 @@ struct StationDetailView: View {
     @State private var selectedTraffic = "Alta"
     @State private var selectedDay = "Lunes"
 
+    @State private var direction = 0
+
     let trafficOptions = ["Alta", "Media", "Baja"]
+
+    let days = [
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+        "Domingo"
+    ]
+
+    var terminals: [String] {
+
+        guard
+            let first = line.stations.first,
+            let last = line.stations.last
+        else {
+            return []
+        }
+
+        return [first, last]
+    }
+
+    var currentIndex: Int {
+
+        line.stations.firstIndex(of: station) ?? 0
+    }
+
+    var remainingStations: Int {
+
+        if direction == 0 {
+
+            return currentIndex
+
+        } else {
+
+            return (line.stations.count - 1) - currentIndex
+        }
+    }
+
+    var destination: String {
+
+        terminals[direction]
+    }
 
     var prediction: String {
 
@@ -25,13 +71,28 @@ struct StationDetailView: View {
         switch prediction {
 
         case "Alta":
-            return 6
+            return max(2, remainingStations / 2)
 
         case "Media":
-            return 4
+            return max(3, remainingStations / 2)
 
         default:
-            return 2
+            return max(4, remainingStations / 2)
+        }
+    }
+
+    var saturationColor: Color {
+
+        switch prediction {
+
+        case "Alta":
+            return .red
+
+        case "Media":
+            return .orange
+
+        default:
+            return .green
         }
     }
 
@@ -60,30 +121,105 @@ struct StationDetailView: View {
 
                     VStack(spacing: 20) {
 
+                        VStack(alignment: .leading) {
+
+                            Text("Dirección")
+                                .font(.headline)
+
+                            Picker(
+                                "Dirección",
+                                selection: $direction
+                            ) {
+
+                                Text(terminals[0])
+                                    .tag(0)
+
+                                Text(terminals[1])
+                                    .tag(1)
+                            }
+                            .pickerStyle(.segmented)
+                        }
+
+                        Divider()
+
                         Stepper(
-                            "Hora: \(selectedHour):00",
+                            "Hora: \(selectedHour):00 hrs",
                             value: $selectedHour,
                             in: 0...23
                         )
 
-                        Picker(
-                            "Tráfico",
-                            selection: $selectedTraffic
-                        ) {
+                        Divider()
 
-                            ForEach(
-                                trafficOptions,
-                                id: \.self
+                        VStack(alignment: .leading) {
+
+                            Text("Nivel de tráfico")
+                                .font(.headline)
+
+                            Picker(
+                                "Tráfico",
+                                selection: $selectedTraffic
                             ) {
 
-                                Text($0)
+                                ForEach(
+                                    trafficOptions,
+                                    id: \.self
+                                ) {
+                                    Text($0)
+                                }
                             }
+                            .pickerStyle(.segmented)
                         }
-                        .pickerStyle(.segmented)
 
-                        VStack {
+                        Divider()
 
-                            Text("Tiempo estimado de llegada")
+                        VStack(alignment: .leading) {
+
+                            Text("Día")
+                                .font(.headline)
+
+                            Picker(
+                                "Día",
+                                selection: $selectedDay
+                            ) {
+
+                                ForEach(days, id: \.self) {
+
+                                    Text($0)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                        }
+
+                        Divider()
+
+                        VStack(spacing: 10) {
+
+                            Text("Destino")
+                                .font(.headline)
+
+                            Text(destination)
+                                .font(.title2)
+                                .bold()
+                        }
+
+                        Divider()
+
+                        VStack(spacing: 10) {
+
+                            Text("Estaciones restantes")
+                                .font(.headline)
+
+                            Text("\(remainingStations)")
+                                .font(.system(size: 35))
+                                .bold()
+                                .foregroundColor(.blue)
+                        }
+
+                        Divider()
+
+                        VStack(spacing: 10) {
+
+                            Text("Próxima unidad")
                                 .font(.headline)
 
                             Text("\(arrivalTime) min")
@@ -94,7 +230,7 @@ struct StationDetailView: View {
 
                         Divider()
 
-                        VStack {
+                        VStack(spacing: 10) {
 
                             Text("Predicción IA")
                                 .font(.headline)
@@ -102,6 +238,7 @@ struct StationDetailView: View {
                             Text(prediction)
                                 .font(.title)
                                 .bold()
+                                .foregroundColor(saturationColor)
                         }
                     }
                     .padding()
@@ -112,4 +249,22 @@ struct StationDetailView: View {
             }
         }
     }
+}
+
+#Preview {
+
+    StationDetailView(
+        line: TransitLine(
+            name: "Línea 1",
+            type: "Tren Ligero",
+            color: "red",
+            stations: [
+                "Auditorio",
+                "Periférico Norte",
+                "Juárez",
+                "Periférico Sur"
+            ]
+        ),
+        station: "Juárez"
+    )
 }
