@@ -116,50 +116,100 @@ struct StationDetailView: View {
 
     var body: some View {
 
-        ZStack {
+        ScrollView {
 
-            LinearGradient(
-                colors: [
-                    line.color.opacity(0.9),
-                    line.color.opacity(0.5)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            VStack(spacing: 24) {
 
-            ScrollView {
+                // Header
 
-                VStack(spacing: 20) {
+                VStack(spacing: 8) {
+
+                    Circle()
+                        .fill(line.color)
+                        .frame(width: 70, height: 70)
+                        .overlay {
+
+                            Image(systemName: "tram.fill")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }
 
                     Text(station)
-                        .font(.largeTitle)
-                        .bold()
-                        .foregroundColor(.white)
+                        .font(.largeTitle.bold())
 
                     Text(line.name)
-                        .foregroundColor(.white)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.top)
 
-                    VStack(spacing: 20) {
+                // Trayecto
 
-                        Picker(
-                            "Dirección",
-                            selection: $direction
-                        ) {
+                VStack(spacing: 18) {
 
-                            Text(terminals[0])
-                                .tag(0)
+                    routeInfoRow(
+                        icon: "mappin.circle.fill",
+                        title: "Estás en",
+                        value: station
+                    )
 
-                            Text(terminals[1])
-                                .tag(1)
-                        }
-                        .pickerStyle(.segmented)
+                    routeInfoRow(
+                        icon: "flag.circle.fill",
+                        title: "Destino",
+                        value: destination
+                    )
 
-                        Stepper(
-                            "Hora: \(selectedHour):00 hrs",
-                            value: $selectedHour,
-                            in: 0...23
-                        )
+                    routeInfoRow(
+                        icon: "tram.fill",
+                        title: "Próxima estación",
+                        value: nextStation
+                    )
+
+                    routeInfoRow(
+                        icon: "point.topleft.down.curvedto.point.bottomright.up.fill",
+                        title: "Estaciones restantes",
+                        value: "\(remainingStations)"
+                    )
+                }
+                .padding()
+                .background(.white)
+                .cornerRadius(28)
+                .shadow(
+                    color: .black.opacity(0.08),
+                    radius: 10,
+                    y: 4
+                )
+                .padding(.horizontal)
+
+                // Configuración
+
+                VStack(alignment: .leading, spacing: 20) {
+
+                    Text("Configuración")
+                        .font(.headline)
+
+                    Picker(
+                        "Dirección",
+                        selection: $direction
+                    ) {
+
+                        Text(terminals[0])
+                            .tag(0)
+
+                        Text(terminals[1])
+                            .tag(1)
+                    }
+                    .pickerStyle(.segmented)
+
+                    Stepper(
+                        "Hora: \(selectedHour):00 hrs",
+                        value: $selectedHour,
+                        in: 0...23
+                    )
+
+                    VStack(alignment: .leading) {
+
+                        Text("Nivel de tráfico")
+                            .font(.subheadline)
 
                         Picker(
                             "Tráfico",
@@ -174,83 +224,124 @@ struct StationDetailView: View {
                             }
                         }
                         .pickerStyle(.segmented)
-
-                        Divider()
-
-                        infoCard(
-                            title: "Destino",
-                            value: destination
-                        )
-
-                        infoCard(
-                            title: "Próxima estación",
-                            value: nextStation
-                        )
-
-                        infoCard(
-                            title: "Estaciones restantes",
-                            value: "\(remainingStations)"
-                        )
-
-                        infoCard(
-                            title: "Próxima unidad",
-                            value: "\(arrivalTime) min"
-                        )
-
-                        infoCard(
-                            title: "Estado del servicio",
-                            value: serviceStatus
-                        )
-
-                        VStack(spacing: 15) {
-
-                            Text("Nivel de saturación")
-                                .font(.headline)
-
-                            HStack(spacing: 8) {
-
-                                ForEach(0..<5) { index in
-
-                                    RoundedRectangle(
-                                        cornerRadius: 8
-                                    )
-                                    .fill(barColor(for: index))
-                                    .frame(height: 18)
-                                }
-                            }
-
-                            Text(prediction)
-                                .font(.title2)
-                                .bold()
-                                .foregroundColor(saturationColor)
-                        }
                     }
-                    .padding()
-                    .background(.white)
-                    .cornerRadius(25)
                 }
                 .padding()
-            }
-            .onDisappear {
+                .background(.white)
+                .cornerRadius(28)
+                .shadow(
+                    color: .black.opacity(0.08),
+                    radius: 10,
+                    y: 4
+                )
+                .padding(.horizontal)
 
-                saveToHistory()
+                // Resultado IA
+
+                VStack(spacing: 18) {
+
+                    Text("Predicción IA")
+                        .font(.headline)
+
+                    HStack(spacing: 8) {
+
+                        ForEach(0..<5) { index in
+
+                            RoundedRectangle(
+                                cornerRadius: 8
+                            )
+                            .fill(
+                                barColor(for: index)
+                            )
+                            .frame(
+                                width: 40,
+                                height: 18
+                            )
+                        }
+                    }
+
+                    Text(prediction)
+                        .font(.system(
+                            size: 34,
+                            weight: .bold
+                        ))
+                        .foregroundColor(
+                            saturationColor
+                        )
+
+                    Divider()
+
+                    HStack {
+
+                        VStack {
+
+                            Text("Próxima unidad")
+                                .font(.caption)
+
+                            Text("\(arrivalTime) min")
+                                .font(.title2.bold())
+                        }
+
+                        Spacer()
+
+                        VStack {
+
+                            Text("Estado")
+                                .font(.caption)
+
+                            Text(serviceStatus)
+                                .font(.headline)
+                                .multilineTextAlignment(
+                                    .center
+                                )
+                        }
+                    }
+                }
+                .padding()
+                .background(
+                    saturationColor.opacity(0.1)
+                )
+                .cornerRadius(30)
+                .padding(.horizontal)
             }
+            .padding(.bottom, 30)
+        }
+        .background(
+            Color(.systemGroupedBackground)
+        )
+        .navigationBarTitleDisplayMode(.inline)
+        .onDisappear {
+
+            saveToHistory()
         }
     }
 
-    func infoCard(
+    func routeInfoRow(
+        icon: String,
         title: String,
         value: String
     ) -> some View {
 
-        VStack(spacing: 8) {
+        HStack(spacing: 14) {
 
-            Text(title)
-                .font(.headline)
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(line.color)
 
-            Text(value)
-                .font(.title3)
-                .bold()
+            VStack(
+                alignment: .leading,
+                spacing: 4
+            ) {
+
+                Text(title)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Text(value)
+                    .font(.headline)
+            }
+
+            Spacer()
         }
     }
 
@@ -259,19 +350,16 @@ struct StationDetailView: View {
         switch prediction {
 
         case "Alta":
-
             return index < 5
             ? .red
             : .gray.opacity(0.2)
 
         case "Media":
-
             return index < 3
             ? .orange
             : .gray.opacity(0.2)
 
         default:
-
             return index < 2
             ? .green
             : .gray.opacity(0.2)

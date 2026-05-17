@@ -198,77 +198,117 @@ struct ContentView: View {
 
         NavigationView {
 
-            ZStack {
+            ScrollView {
 
-                LinearGradient(
-                    colors: [.blue.opacity(0.7), .cyan.opacity(0.4)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                VStack(alignment: .leading, spacing: 24) {
 
-                ScrollView {
-
-                    VStack(spacing: 20) {
+                    VStack(alignment: .leading, spacing: 8) {
 
                         Text("TransitIA GDL")
-                            .font(.largeTitle)
-                            .bold()
-                            .foregroundColor(.white)
+                            .font(.system(size: 34, weight: .bold))
 
-                        Text("Sistema de transporte SITEUR Guadalajara")
-                            .foregroundColor(.white.opacity(0.9))
+                        Text("Movilidad inteligente para Guadalajara")
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.horizontal)
 
-                        NavigationLink(destination: HistoryView()) {
+                    NavigationLink(destination: HistoryView()) {
 
-                            menuButton(
-                                title: "Ver historial",
-                                icon: "clock.arrow.circlepath"
-                            )
+                        HStack {
+
+                            Image(systemName: "clock.arrow.circlepath")
+
+                            Text("Ver historial")
+                                .bold()
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
                         }
+                        .foregroundColor(.primary)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(18)
+                        .padding(.horizontal)
+                    }
 
-                        NavigationLink(destination: StatsView()) {
+                    VStack(alignment: .leading, spacing: 15) {
 
-                            menuButton(
-                                title: "Ver estadísticas",
-                                icon: "chart.bar.fill"
-                            )
-                        }
+                        Text("Líneas disponibles")
+                            .font(.title2.bold())
+                            .padding(.horizontal)
 
                         ForEach(lines) { line in
 
                             NavigationLink(
-                                destination: LineDetailView(line: line)
+                                destination:
+                                    LineDetailView(
+                                        line: line
+                                    )
                             ) {
 
-                                LineCardView(line: line)
+                                HStack(spacing: 16) {
+
+                                    Circle()
+                                        .fill(line.color)
+                                        .frame(
+                                            width: 18,
+                                            height: 18
+                                        )
+
+                                    VStack(
+                                        alignment: .leading,
+                                        spacing: 4
+                                    ) {
+
+                                        Text(line.name)
+                                            .font(.headline)
+
+                                        Text(line.type)
+                                            .foregroundColor(
+                                                .secondary
+                                            )
+
+                                        Text(
+                                            "\(line.stations.count) estaciones"
+                                        )
+                                        .font(.caption)
+                                        .foregroundColor(
+                                            .secondary
+                                        )
+                                    }
+
+                                    Spacer()
+
+                                    Image(
+                                        systemName:
+                                            "chevron.right"
+                                    )
+                                    .foregroundColor(
+                                        .gray
+                                    )
+                                }
+                                .padding()
+                                .background(.white)
+                                .cornerRadius(22)
+                                .shadow(
+                                    color: .black.opacity(0.08),
+                                    radius: 8,
+                                    y: 4
+                                )
+                                .padding(.horizontal)
                             }
                             .buttonStyle(.plain)
                         }
                     }
-                    .padding()
                 }
+                .padding(.vertical)
             }
+            .background(
+                Color(.systemGroupedBackground)
+            )
+            .navigationBarHidden(true)
         }
-    }
-
-    func menuButton(
-        title: String,
-        icon: String
-    ) -> some View {
-
-        HStack {
-
-            Image(systemName: icon)
-
-            Text(title)
-                .bold()
-        }
-        .foregroundColor(.white)
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(.white.opacity(0.2))
-        .cornerRadius(15)
     }
 }
 
