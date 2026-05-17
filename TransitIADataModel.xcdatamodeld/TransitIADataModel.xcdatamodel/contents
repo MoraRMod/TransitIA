@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24837" systemVersion="25E253" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="IncidentEntity" representedClassName="IncidentEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="descripcionInfo" optional="YES" attributeType="String"/>
+        <attribute name="fecha" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="tipoIncidente" optional="YES" attributeType="String"/>
+        <attribute name="zona" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="PrecitionEntity" representedClassName="PrecitionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dia" optional="YES" attributeType="String"/>
+        <attribute name="direccion" optional="YES" attributeType="String"/>
+        <attribute name="estacion" optional="YES" attributeType="String"/>
+        <attribute name="fehca" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="horaConsulta" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="linea" optional="YES" attributeType="String"/>
+        <attribute name="prediccion" optional="YES" attributeType="String"/>
+        <attribute name="tiempoEstimado" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="RutaEntity" representedClassName="RutaEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="nombreRuta" optional="YES" attributeType="String"/>
+        <attribute name="tipoRuta" optional="YES" attributeType="String"/>
+        <attribute name="zona" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="UsuarioEntity" representedClassName="UsuarioEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="correo" optional="YES" attributeType="String"/>
+        <attribute name="fechaRegistro" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <attribute name="tipoUsuario" optional="YES" attributeType="String"/>
+    </entity>
+</model>

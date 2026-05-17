@@ -1,17 +1,23 @@
-//
-//  TransitIAApp.swift
-//  TransitIA
-//
-//  Created by Omar Díaz on 11/05/26.
-//
-
 import SwiftUI
+internal import CoreData
 
 @main
 struct TransitIAApp: App {
+
+    let persistenceController =
+        PersistenceController.shared
+
     var body: some Scene {
+
         WindowGroup {
-            SplashView()
+
+            ContentView()
+                .environment(
+                    \.managedObjectContext,
+                    persistenceController
+                        .container
+                        .viewContext
+                )
         }
     }
 }
