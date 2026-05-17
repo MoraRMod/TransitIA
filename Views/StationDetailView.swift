@@ -202,13 +202,25 @@ struct StationDetailView: View {
                             value: serviceStatus
                         )
 
-                        VStack(spacing: 10) {
+                        VStack(spacing: 15) {
 
-                            Text("Predicción IA")
+                            Text("Nivel de saturación")
                                 .font(.headline)
 
+                            HStack(spacing: 8) {
+
+                                ForEach(0..<5) { index in
+
+                                    RoundedRectangle(
+                                        cornerRadius: 8
+                                    )
+                                    .fill(barColor(for: index))
+                                    .frame(height: 18)
+                                }
+                            }
+
                             Text(prediction)
-                                .font(.title)
+                                .font(.title2)
                                 .bold()
                                 .foregroundColor(saturationColor)
                         }
@@ -235,6 +247,30 @@ struct StationDetailView: View {
             Text(value)
                 .font(.title3)
                 .bold()
+        }
+    }
+    
+    func barColor(for index: Int) -> Color {
+
+        switch prediction {
+
+        case "Alta":
+
+            return index < 5
+            ? .red
+            : .gray.opacity(0.2)
+
+        case "Media":
+
+            return index < 3
+            ? .orange
+            : .gray.opacity(0.2)
+
+        default:
+
+            return index < 2
+            ? .green
+            : .gray.opacity(0.2)
         }
     }
 }
