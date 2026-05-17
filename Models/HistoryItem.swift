@@ -2,7 +2,7 @@ import Foundation
 
 struct HistoryItem: Identifiable, Codable {
 
-    let id = UUID()
+    var id = UUID()
 
     let routeName: String
     let prediction: String

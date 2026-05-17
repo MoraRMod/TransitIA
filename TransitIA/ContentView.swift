@@ -1,19 +1,93 @@
 import SwiftUI
 
-struct BusRoute: Identifiable {
-    let id = UUID()
-    let name: String
-    let waitTime: String
-    let saturation: String
-}
-
 struct ContentView: View {
 
-    let routes = [
-        BusRoute(name: "Ruta 380", waitTime: "8 min", saturation: "Alta"),
-        BusRoute(name: "Ruta 622", waitTime: "5 min", saturation: "Media"),
-        BusRoute(name: "Macro Periférico", waitTime: "2 min", saturation: "Baja"),
-        BusRoute(name: "Ruta 24", waitTime: "10 min", saturation: "Alta")
+    let lines: [TransitLine] = [
+
+        TransitLine(
+            name: "Línea 1",
+            type: "Tren Ligero",
+            color: "red",
+            stations: [
+                "Auditorio",
+                "Periférico Norte",
+                "Dermatológico",
+                "Ávila Camacho",
+                "Juárez",
+                "Mexicaltzingo",
+                "Periférico Sur"
+            ]
+        ),
+
+        TransitLine(
+            name: "Línea 2",
+            type: "Tren Ligero",
+            color: "green",
+            stations: [
+                "Juárez",
+                "San Juan de Dios",
+                "Tetlán"
+            ]
+        ),
+
+        TransitLine(
+            name: "Línea 3",
+            type: "Tren Ligero",
+            color: "pink",
+            stations: [
+                "Arcos de Zapopan",
+                "Periférico Belenes",
+                "Mercado del Mar",
+                "Zapopan Centro",
+                "Plaza Patria",
+                "Ávila Camacho",
+                "Guadalajara Centro",
+                "Central de Autobuses"
+            ]
+        ),
+
+        TransitLine(
+            name: "Línea 4",
+            type: "Tren Ligero",
+            color: "orange",
+            stations: [
+                "Tlajomulco Centro",
+                "Las Juntas"
+            ]
+        ),
+
+        TransitLine(
+            name: "Línea 5",
+            type: "Macro Aeropuerto",
+            color: "cyan",
+            stations: [
+                "Aeropuerto",
+                "Tlaquepaque Centro"
+            ]
+        ),
+
+        TransitLine(
+            name: "Línea 6",
+            type: "Macro Calzada",
+            color: "mint",
+            stations: [
+                "Mirador",
+                "Independencia Norte",
+                "San Juan de Dios"
+            ]
+        ),
+
+        TransitLine(
+            name: "Línea 7",
+            type: "Macro Periférico",
+            color: "purple",
+            stations: [
+                "Barranca de Huentitán",
+                "Periférico Norte",
+                "CUCEA",
+                "Centro Sur"
+            ]
+        )
     ]
 
     var body: some View {
@@ -33,46 +107,64 @@ struct ContentView: View {
 
                     VStack(spacing: 20) {
 
-                        Text("TransitIA")
+                        Text("TransitIA GDL")
                             .font(.largeTitle)
                             .bold()
                             .foregroundColor(.white)
-                            .padding(.top)
 
-                        Text("Consulta tiempos y saturación del transporte público")
+                        Text("Sistema de transporte SITEUR Guadalajara")
                             .foregroundColor(.white.opacity(0.9))
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
-                        
+
                         NavigationLink(destination: HistoryView()) {
 
-                            HStack {
-
-                                Image(systemName: "clock.arrow.circlepath")
-
-                                Text("Ver historial")
-                                    .bold()
-                            }
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(.black.opacity(0.2))
-                            .cornerRadius(15)
+                            menuButton(
+                                title: "Ver historial",
+                                icon: "clock.arrow.circlepath"
+                            )
                         }
 
-                        ForEach(routes) { route in
+                        NavigationLink(destination: StatsView()) {
 
-                            NavigationLink(destination: RouteDetailView(route: route)) {
+                            menuButton(
+                                title: "Ver estadísticas",
+                                icon: "chart.bar.fill"
+                            )
+                        }
 
-                                RouteCardView(route: route)
+                        ForEach(lines) { line in
+
+                            NavigationLink(
+                                destination: LineDetailView(line: line)
+                            ) {
+
+                                LineCardView(line: line)
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .buttonStyle(.plain)
                         }
                     }
                     .padding()
                 }
             }
         }
+    }
+
+    func menuButton(
+        title: String,
+        icon: String
+    ) -> some View {
+
+        HStack {
+
+            Image(systemName: icon)
+
+            Text(title)
+                .bold()
+        }
+        .foregroundColor(.white)
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(.white.opacity(0.2))
+        .cornerRadius(15)
     }
 }
 

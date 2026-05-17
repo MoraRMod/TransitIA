@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07902A6D2FB5791500A9479A /* RouteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A6C2FB5791500A9479A /* RouteCardView.swift */; };
 		07902A6F2FB57F0500A9479A /* TransitPredictor.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 07902A6E2FB57F0500A9479A /* TransitPredictor.mlmodel */; };
 		07902A712FB57F7300A9479A /* PredictionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A702FB57F7300A9479A /* PredictionService.swift */; };
 		07902A732FB58F1200A9479A /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A722FB58F1200A9479A /* HistoryItem.swift */; };
 		07902A752FB58F5200A9479A /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A742FB58F5100A9479A /* HistoryService.swift */; };
 		07902A772FB58F6800A9479A /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07902A762FB58F6800A9479A /* HistoryView.swift */; };
-		07920E3D2FB2F8CE007F2D93 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */; };
+		07FBEC3B2FBA47EF008C897A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBEC3A2FBA47EF008C897A /* SplashView.swift */; };
+		07FBEC3D2FBA482A008C897A /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBEC3C2FBA482A008C897A /* StatsView.swift */; };
+		07FBEC3F2FBA4EC1008C897A /* TransitLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBEC3E2FBA4EC1008C897A /* TransitLine.swift */; };
+		07FBEC412FBA4F10008C897A /* LineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBEC402FBA4F10008C897A /* LineCardView.swift */; };
+		07FBEC432FBA4F28008C897A /* LineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBEC422FBA4F28008C897A /* LineDetailView.swift */; };
+		07FBEC452FBA4F43008C897A /* StationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBEC442FBA4F43008C897A /* StationDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07902A6C2FB5791500A9479A /* RouteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCardView.swift; sourceTree = "<group>"; };
 		07902A6E2FB57F0500A9479A /* TransitPredictor.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TransitPredictor.mlmodel; sourceTree = "<group>"; };
 		07902A702FB57F7300A9479A /* PredictionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionService.swift; sourceTree = "<group>"; };
 		07902A722FB58F1200A9479A /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
@@ -43,7 +46,12 @@
 		07920E022FB2F66C007F2D93 /* TransitIA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07920E0F2FB2F66D007F2D93 /* TransitIATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitIATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07920E192FB2F66D007F2D93 /* TransitIAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitIAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailView.swift; sourceTree = "<group>"; };
+		07FBEC3A2FBA47EF008C897A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		07FBEC3C2FBA482A008C897A /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		07FBEC3E2FBA4EC1008C897A /* TransitLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitLine.swift; sourceTree = "<group>"; };
+		07FBEC402FBA4F10008C897A /* LineCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCardView.swift; sourceTree = "<group>"; };
+		07FBEC422FBA4F28008C897A /* LineDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineDetailView.swift; sourceTree = "<group>"; };
+		07FBEC442FBA4F43008C897A /* StationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -118,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				07902A722FB58F1200A9479A /* HistoryItem.swift */,
+				07FBEC3E2FBA4EC1008C897A /* TransitLine.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -125,9 +134,12 @@
 		07920E352FB2F830007F2D93 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				07920E3C2FB2F8CE007F2D93 /* RouteDetailView.swift */,
-				07902A6C2FB5791500A9479A /* RouteCardView.swift */,
 				07902A762FB58F6800A9479A /* HistoryView.swift */,
+				07FBEC3A2FBA47EF008C897A /* SplashView.swift */,
+				07FBEC3C2FBA482A008C897A /* StatsView.swift */,
+				07FBEC402FBA4F10008C897A /* LineCardView.swift */,
+				07FBEC422FBA4F28008C897A /* LineDetailView.swift */,
+				07FBEC442FBA4F43008C897A /* StationDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -300,13 +312,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07920E3D2FB2F8CE007F2D93 /* RouteDetailView.swift in Sources */,
+				07FBEC3D2FBA482A008C897A /* StatsView.swift in Sources */,
 				07902A6F2FB57F0500A9479A /* TransitPredictor.mlmodel in Sources */,
 				07902A752FB58F5200A9479A /* HistoryService.swift in Sources */,
+				07FBEC412FBA4F10008C897A /* LineCardView.swift in Sources */,
+				07FBEC432FBA4F28008C897A /* LineDetailView.swift in Sources */,
 				07902A732FB58F1200A9479A /* HistoryItem.swift in Sources */,
 				07902A712FB57F7300A9479A /* PredictionService.swift in Sources */,
-				07902A6D2FB5791500A9479A /* RouteCardView.swift in Sources */,
 				07902A772FB58F6800A9479A /* HistoryView.swift in Sources */,
+				07FBEC452FBA4F43008C897A /* StationDetailView.swift in Sources */,
+				07FBEC3B2FBA47EF008C897A /* SplashView.swift in Sources */,
+				07FBEC3F2FBA4EC1008C897A /* TransitLine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
